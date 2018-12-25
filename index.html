@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Тестовое задание</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+	<header>
+		<div class="container">
+			<div class="row pt-5">
+				<div class="col-md-2 col-sm-5">
+					<img class="logo" src="../img/logo.png">
+				</div>
+			</div>
+			<div class="row pt-5 d-flex justify-content-center">
+				<div class="col-3">
+					<img class="contact" src="../img/contact.png">
+				</div>
+			</div>
+
+			<div class="row pt-5 d-flex justify-content-center">
+				
+				<div class="col-4">
+					<form action="/load.php"  id="FormAjax">
+					<label class="text-form" >Имя<span style="padding-left:2px;color:red;">*</span></label>
+					<input  type="name" class="input-form" name="name"  placeholder="">
+
+					<label class="text-form" >Почта<span style="padding-left:2px;color:red;">*</span></label>
+					<input  type="email" class="input-form" name="email"  placeholder="">
+				</div>
+
+				<div class="col">
+					<label class="text-form" >Комментарий<span style="padding-left:2px;color:red;">*</span></label>
+    				<textarea class="input-form" name="comment" rows="3" > </textarea>
+				</div>
+			
+			</div>
+
+			<div class="row ">
+				<div class="col d-flex justify-content-end">
+					<input type="submit" class="button-form"></input>
+				</div>
+			</div>
+			</form>
+		</div>
+	</header>
+
+	<section class="mb-5">
+		<div class="container ">
+			<div class="row mt-5 d-flex justify-content-center mb-4" >
+				<h2 class="text-grey" >Выводим комментарии</h2>
+			</div>
+
+			<div class="row" id="comments">
+				
+				{{comments}}
+			</div>
+		</div>
+	</section>
+
+	<footer>
+		<div class="container">
+			<div class="row ">
+				<div class="col-md-2 col-sm-5 mt-3">
+					<img class="logo" src="../img/logo.png">
+				</div>
+
+				<div class="col offset-8 mt-3">
+					<img class="vk" src="../img/vk.png">
+					<img class="fb" src="../img/fb.png">
+				</div>
+				
+			</div>
+		</div>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+$('#FormAjax').submit(function(){ 
+	var action = $(this).attr('action');
+	var form_data = $(this).serialize();
+	console.log("njkl");
+
+   $.ajax({
+    url: action,
+    type: 'post',
+    data: form_data,        
+    datatype: "html",         
+    success: function (data) {    
+      var card = $(data).get(0);
+      $("#comments").prepend(card);
+    }     
+  });
+  console.log(action+form_data);
+  return false;
+  }); 
+	
+		
+	</script>
+	
+</body>
+</html>
